@@ -406,6 +406,16 @@ typedef enum : NSUInteger {
 *   @param index The index of the tile source to hide or show. */
 - (void)setHidden:(BOOL)isHidden forTileSourceAtIndex:(NSUInteger)index;
 
+/** Change a tile source's alpha value.
+*   @param alpha The desired alpha value.
+*   @param tileSource The tile source to change. */
+- (void)setAlpha:(CGFloat)alpha forTileSource:(id <RMTileSource>)tileSource;
+
+/** Change the alpha value of a tile source at a given index.
+*   @param alpha The desired alpha value.
+*   @param index The index of the tile source to change. */
+- (void)setAlpha:(CGFloat)alpha forTileSourceAtIndex:(NSUInteger)index;
+
 /** Reload the tiles for a given tile source. 
 *   @param tileSource The tile source to reload. */
 - (void)reloadTileSource:(id <RMTileSource>)tileSource;
@@ -483,7 +493,7 @@ typedef enum : NSUInteger {
 *   This property does not indicate whether the user’s position is actually visible on the map, only whether the map view is allowed to display it. To determine whether the user’s position is visible, use the userLocationVisible property. The default value of this property is `NO`.
 *
 *   Setting this property to `YES` causes the map view to use the Core Location framework to find the current location. As long as this property is `YES`, the map view continues to track the user’s location and update it periodically. */
-@property (nonatomic, assign)   BOOL showsUserLocation;
+@property (nonatomic, assign) BOOL showsUserLocation;
 
 /** The annotation object representing the user’s current location. (read-only) */
 @property (nonatomic, readonly) RMUserLocation *userLocation;
@@ -496,10 +506,10 @@ typedef enum : NSUInteger {
 @property (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
 
 /** The mode used to track the user location. */
-@property (nonatomic, assign)   RMUserTrackingMode userTrackingMode;
+@property (nonatomic, assign) RMUserTrackingMode userTrackingMode;
 
 /** Whether the map view should display a heading calibration alert when necessary. The default value is `YES`. */
-@property (nonatomic, assign)   BOOL displayHeadingCalibration;
+@property (nonatomic, assign) BOOL displayHeadingCalibration;
 
 /** Set the mode used to track the user location. 
 *

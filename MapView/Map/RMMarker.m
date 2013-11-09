@@ -118,10 +118,16 @@
     
     if (color)
     {
-        CGFloat red, green, blue, alpha;
+        CGFloat white, red, green, blue, alpha;
 
         if ([color getRed:&red green:&green blue:&blue alpha:&alpha])
+        {
             colorHex = [NSString stringWithFormat:@"%02x%02x%02x", (NSUInteger)(red * 255), (NSUInteger)(green * 255), (NSUInteger)(blue * 255)];
+        }
+        else if ([color getWhite:&white alpha:&alpha])
+        {
+            colorHex = [NSString stringWithFormat:@"%02x%02x%02x", (NSUInteger)(white * 255), (NSUInteger)(white * 255), (NSUInteger)(white * 255)];
+        }
     }
     
     return [self initWithMapBoxMarkerImage:symbolName tintColorHex:colorHex sizeString:sizeString];
@@ -138,7 +144,7 @@
     
     NSURL *imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.tiles.mapbox.com/v3/marker/pin-%@%@%@%@.png",
                                                (sizeString ? [sizeString substringToIndex:1] : @"m"), 
-                                               (symbolName ? [@"-" stringByAppendingString:symbolName] : @"-star"),
+                                               (symbolName ? [@"-" stringByAppendingString:symbolName] : @""),
                                                (colorHex   ? [@"+" stringByAppendingString:[colorHex stringByReplacingOccurrencesOfString:@"#" withString:@""]] : @"+ff0000"),
                                                (useRetina  ? @"@2x" : @"")]];
 
@@ -239,10 +245,7 @@
     [aLabel setBackgroundColor:backgroundColor];
     [aLabel setTextColor:textColor];
     [aLabel setFont:font];
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [aLabel setTextAlignment:UITextAlignmentCenter];
-    #pragma clang diagnostic pop
+    [aLabel setTextAlignment:NSTextAlignmentCenter];
     [aLabel setText:text];
 
     [self setLabel:aLabel];
